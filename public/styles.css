@@ -45,28 +45,28 @@
 .cat-butt{
     width:100%
 }
+
+/*//////////////////////////////////// ACCOUNT FORM ////////////////////////////////////*/
+
+.account-form{
+    width: 100%;
+}
+
+
 /*//////////////////////////////////// TRANSACTION SECTION ////////////////////////////////////*/
 
 .transaction-list{
-    border: 1px dotted black;
-    display: flex;
-    flex-direction: column;
     width: 80%;
     margin: 20px;
 }
 
 .transaction-header{
-    display:flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-    border-bottom: 1px dotted black;
+    background-color: lightgrey;
 }
 
-.transaction-entry{
-    border-bottom: 1px dotted black;
-}
-
+table, th, td {
+    border: 1px dotted black;
+  }
 /*//////////////////////////////////// TRANSACTION FORM ////////////////////////////////////*/
 
 /*//////////////////////////////////// MISC ////////////////////////////////////*/
