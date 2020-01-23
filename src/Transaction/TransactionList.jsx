@@ -10,7 +10,7 @@ const TransactionList = (props) =>{
                 <div>Description</div>
                 <div>Amount</div>
                 <div>Transaction Type</div>
-                <div>Catagory</div>
+                <div>Category</div>
                 <div>Account Name</div>
             </div>
             <div className='transaction-entry'>

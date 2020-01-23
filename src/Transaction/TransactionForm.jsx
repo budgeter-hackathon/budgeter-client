@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 const TransactionForm = (props) =>{
-    const [catagoryName,setCatagoryName] = useState('');
+    const [categoryName,setCategoryName] = useState('');
     const [amount,setAmount] = useState('');
     const [date,setDate] = useState('');
     const [description,setDescription] = useState('');
@@ -15,8 +15,8 @@ const TransactionForm = (props) =>{
     }
 
     const handleClick = (e) =>{
-        props.sendTransaction(catagoryName, amount, date, description, accountName, transType);
-        setCatagoryName('');
+        props.sendTransaction(categoryName, amount, date, description, accountType, transType);
+        setCategoryName('');
         setAmount('');
         setDate('');
         setDescription('');
@@ -26,7 +26,7 @@ const TransactionForm = (props) =>{
 
     return (
         <div className='transaction-form'>
-            <input name='catagoryName' value={catagoryName} onChange={handleChange}/>
+            <input name='categoryName' value={categoryName} onChange={handleChange}/>
             <input name='amount' value={amount} onChange={handleChange}/>
             <input name='date' value={date} onChange={handleChange}/>
             <input name='description' value={description} onChange={handleChange}/>

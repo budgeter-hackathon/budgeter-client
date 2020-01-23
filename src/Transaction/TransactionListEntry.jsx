@@ -11,7 +11,7 @@ const TransactionListEntry = (props) =>{
             <div>{props.description}</div>
             <div>{props.amount}</div>
             <div>{props.transType}</div>
-            <div>{props.catagoryName}</div>
+            <div>{props.categoryName}</div>
             <div>{props.accountName}</div>
         </div>
     )

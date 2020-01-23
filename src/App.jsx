@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-import CatagoryList from './Catagory/CatagoryList.jsx';
+import CategoryList from './Category/CategoryList.jsx';
 import TransactionList from './Transaction/TransactionList.jsx';
 import TransactionForm from './Transaction/TransactionForm.jsx';
 import Chart from './Chart.jsx';
@@ -8,31 +8,33 @@ import Chart from './Chart.jsx';
 const App = () => {
 
   const [transactionList, setTransactionList] = useState([]);
-  const [catagoryList, setCatagoryList] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
   const [acountNames, setAccountNames] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('All')
   
 
   useEffect(() =>{
     //initialize the state here by pulling data from the database using axios requests
+    
   },[])
 
-  const sendTransaction = (catagoryName, amount, date, description, accountName, transType) =>{
-    console.log(catagoryName, amount, date, description, accountName, transType);
+  const sendTransaction = (categoryName, amount, date, description, accountName, transType) =>{
+    console.log(categoryName, amount, date, description, accountName, transType);
     //send the transaction over to the server then update the transaction list
   };
 
-  const sendCatagory = (catagoryName, targetBudget) =>{
-    console.log(catagoryName, targetBudget);
-    //send the data over to sever then retrieve the catagory data using the setCatagoryList state function
+  const sendCategory = (categoryName, targetBudget) =>{
+    console.log(categoryName, targetBudget);
+    console.log(selectedFilter)
+    //send the data over to server then retrieve the category data using the setCategoryList state function
   };
 
   return (
     <div className='main-container'>
-      <h1 className="title is-1 has-text-centered">mInteger</h1>
+      <h1 className="title is-1 has-text-centered">Big Boi Eat Food Manager</h1>
       <div className='trans-cat-container'>
-        <TransactionList transactionList={transactionList}/>
-        <CatagoryList catagoryList={catagoryList} sendCatagory={sendCatagory} acountNames={acountNames}/>
+        <TransactionList transactionList={transactionList} selectedFilter={selectedFilter}/>
+        <CategoryList categoryList={categoryList} sendCategory={sendCategory} acountNames={acountNames} setSelectedFilter={setSelectedFilter}/>
       </div>
       <TransactionForm sendTransaction={sendTransaction}/>
       <Chart />
@@ -47,10 +49,8 @@ export default App;
 //App.jsx:
 //initialize with useEffect
 //get server routes and use axios to send the transactions from form
-//get server routes for catagory sending
-//CatagoryList.jsx
-//make the click handle work for eah catagory
-//CatagoryForm.jsx
+//get server routes for category sending
+//CategoryForm.jsx
 //complete the button send functionality
 //TransactionForm.jsx
 //complete the handle change function for each field in the transaction input
