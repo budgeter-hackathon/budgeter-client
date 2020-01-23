@@ -9,12 +9,27 @@ const TransactionForm = (props) =>{
     const [accountType,setAccountType] = useState('');
     const [transType,setTransType] = useState('');
 
-    const handleChange = (e) =>{
-        console.log(e);
-        //TODO
+    const handleChangeCatName = (e) =>{
+        setCategoryName(e.target.value)
+    }
+    const handleChangeAmount = (e) =>{
+        setAmount(e.target.value)
+    }
+    const handleChangeDate = (e) =>{
+        setDate(e.target.value)
+    }
+    const handleChangeDescription = (e) =>{
+        setDescription(e.target.value)
+    }
+    const handleChangeAccountType = (e) =>{
+        setAccountType(e.target.value)
+    }
+    const handleChangeTransType = (e) =>{
+        setTransType(e.target.value)
     }
 
-    const handleClick = (e) =>{
+    const handleSubmit = (e) =>{
+        e.preventDefault();
         props.sendTransaction(categoryName, amount, date, description, accountType, transType);
         setCategoryName('');
         setAmount('');
@@ -26,13 +41,20 @@ const TransactionForm = (props) =>{
 
     return (
         <div className='transaction-form'>
-            <input name='categoryName' value={categoryName} onChange={handleChange}/>
-            <input name='amount' value={amount} onChange={handleChange}/>
-            <input name='date' value={date} onChange={handleChange}/>
-            <input name='description' value={description} onChange={handleChange}/>
-            <input name='accountName' value={accountType} onChange={handleChange}/>
-            <input name='transType' value={transType} onChange={handleChange}/>
-            <button onClick={handleClick}>Post Transaction</button>
+            <form onSubmit={handleSubmit}>
+            <select type='text' name='categoryName' value={categoryName} onChange={handleChangeCatName}>
+                {props.categoryList.map((category) =>(<option key={category.id}>{category.name}</option>))}
+            </select>
+            <input type='text' name='amount' value={amount} onChange={handleChangeAmount}/>
+            <input type='text' name='date' value={date} onChange={handleChangeDate}/>
+            <input type='text' name='description' value={description} onChange={handleChangeDescription}/>
+            <input type='text' name='accountName' value={accountType} onChange={handleChangeAccountType}/>
+            <select type='text' name='transType' value={transType} onChange={handleChangeTransType}>
+                <option>Debit</option>
+                <option>Credit</option>
+            </select>
+            <input type='submit' value='Post Transaction'/>
+            </form>
         </div>
     )
 }

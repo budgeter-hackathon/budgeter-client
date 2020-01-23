@@ -10,23 +10,59 @@ const App = () => {
   const [transactionList, setTransactionList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [acountNames, setAccountNames] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState('All')
+  const [selectedFilter, setSelectedFilter] = useState(['Category','All'])
   
 
   useEffect(() =>{
-    //initialize the state here by pulling data from the database using axios requests
-    
+    axios.all([
+      axios.get("http://localhost:5000/api/transactions"),
+      axios.get("http://localhost:5000/api/categories"),
+      axios.get("http://localhost:5000/api/accounts")
+    ])
+    .then(axios.spread((transactions,categories,accounts) =>{
+      setTransactionList(transactions.data);
+      setCategoryList(categories.data);
+      setAccountNames(accounts.data);
+    }))
+    .catch((err)=>{
+      console.error('Error with initialization');
+    })
   },[])
 
   const sendTransaction = (categoryName, amount, date, description, accountName, transType) =>{
-    console.log(categoryName, amount, date, description, accountName, transType);
-    //send the transaction over to the server then update the transaction list
+    axios.post('http://localhost:5000/api/transactions',{
+      categoryName:categoryName,
+      amount:amount,
+      date:date,
+      description:description,
+      accountName:accountName,
+      transType:transType
+    })
+    .then(()=>{
+      return axios.get("http://localhost:5000/api/transactions");//url for transactions
+    })
+    .then((transactions)=>{
+      setTransactionList(transactions.data);
+    })
+    .catch((err) =>{
+      console.error('Error sending a transaction')
+    })
   };
 
   const sendCategory = (categoryName, targetBudget) =>{
-    console.log(categoryName, targetBudget);
-    console.log(selectedFilter)
-    //send the data over to server then retrieve the category data using the setCategoryList state function
+    axios.post("http://localhost:5000/api/categories",{
+      categoryName:categoryName,
+      targetBudget:targetBudget
+    })
+    .then(()=>{
+      return axios.get("http://localhost:5000/api/categories")//url for categories
+    })
+    .then((categories)=>{
+      setCategoryList(categories.data);
+    })
+    .catch((err)=>{
+      console.error('Error with adding a category to the server')
+    })
   };
 
   return (
@@ -36,8 +72,9 @@ const App = () => {
         <TransactionList transactionList={transactionList} selectedFilter={selectedFilter}/>
         <CategoryList categoryList={categoryList} sendCategory={sendCategory} acountNames={acountNames} setSelectedFilter={setSelectedFilter}/>
       </div>
-      <TransactionForm sendTransaction={sendTransaction}/>
+      <TransactionForm sendTransaction={sendTransaction} categoryList={categoryList}/>
       <Chart />
+      
     </div>
   );
 };
@@ -52,8 +89,6 @@ export default App;
 //get server routes for category sending
 //CategoryForm.jsx
 //complete the button send functionality
-//TransactionForm.jsx
-//complete the handle change function for each field in the transaction input
 //TransactionListEntry.jsx
 //complete the handleChange function
 //Chart.jsx
