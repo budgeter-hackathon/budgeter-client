@@ -4,11 +4,12 @@ import CategoryList from "./Category/CategoryList.jsx";
 import TransactionList from "./Transaction/TransactionList.jsx";
 import TransactionForm from "./Transaction/TransactionForm.jsx";
 import Chart from "./Chart.jsx";
+import "./App.css";
 
 const App = () => {
   const [transactionList, setTransactionList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
-  const [acountNames, setAccountNames] = useState([]);
+  const [accountNames, setAccountNames] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState(["Category", "All"]);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const App = () => {
           setAccountNames(accounts.data);
         })
       )
-      .catch(err => {
+      .catch((err) => {
         console.error("Error with initialization");
       });
   }, []);
@@ -50,10 +51,10 @@ const App = () => {
       .then(() => {
         return axios.get("http://localhost:5000/api/transactions"); //url for transactions
       })
-      .then(transactions => {
+      .then((transactions) => {
         setTransactionList(transactions.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Error sending a transaction");
       });
   };
@@ -67,55 +68,57 @@ const App = () => {
       .then(() => {
         return axios.get("http://localhost:5000/api/categories"); //url for categories
       })
-      .then(categories => {
+      .then((categories) => {
         setCategoryList(categories.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("Error with adding a category to the server");
       });
   };
 
-  const sendAccount = (accountName) =>{
-    axios.post("http://localhost:5000/api/accounts",{
-      accountName:accountName
-    })
-  }
+  const sendAccount = (accountName) => {
+    axios.post("http://localhost:5000/api/accounts", {
+      accountName: accountName
+    });
+  };
   return (
-    <div className="main-container">
-      <h1 className="title is-1 has-text-centered">Big Boi Eat Food Manager</h1>
-      <div className="trans-cat-container">
-        <TransactionList
-          transactionList={transactionList}
-          selectedFilter={selectedFilter}
-        />
-        <CategoryList
-          categoryList={categoryList}
-          sendCategory={sendCategory}
-          acountNames={acountNames}
-          setSelectedFilter={setSelectedFilter}
-          sendAccount={sendAccount}
-        />
+    <div>
+      <div className="container is-fluid">
+        <div className="container is-fluid">
+          <div className="columns">
+            <div className="column is-9">
+              <div className="hero has-text-centered" id="main-hero">
+                <div className="hero-body">
+                  <h1 className="title" id="hero-title">
+                    Full$tack
+                  </h1>
+                  <h2 className="subtitle" id="hero-subtitle">
+                    Fat Stacks for FullStack Devs
+                  </h2>
+                </div>
+              </div>
+
+              <TransactionList
+                transactionList={transactionList}
+                selectedFilter={selectedFilter}
+              />
+            </div>
+            <div className="column is-3">
+              <br />
+              <CategoryList
+                categoryList={categoryList}
+                sendCategory={sendCategory}
+                accountNames={accountNames}
+                setSelectedFilter={setSelectedFilter}
+                sendAccount={sendAccount}
+              />
+            </div>
+          </div>
+        </div>
+        <Chart />
       </div>
-      <TransactionForm
-        sendTransaction={sendTransaction}
-        categoryList={categoryList}
-        acountNames={acountNames}
-      />
-      <Chart />
     </div>
   );
 };
 
 export default App;
-
-//TODO:
-//App.jsx:
-//initialize with useEffect
-//get server routes and use axios to send the transactions from form
-//get server routes for category sending
-//CategoryForm.jsx
-//complete the button send functionality
-//TransactionListEntry.jsx
-//complete the handleChange function
-//Chart.jsx
-//NOT COMPLETED

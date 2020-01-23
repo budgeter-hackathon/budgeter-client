@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const CategoryForm = props => {
+const CategoryForm = (props) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryBudget, setCategoryBudget] = useState("");
 
@@ -10,35 +10,45 @@ const CategoryForm = props => {
     setCategoryBudget("");
   };
 
-  const categoryNameHandle = e => {
+  const categoryNameHandle = (e) => {
     setCategoryName(e.target.value);
   };
 
-  const categoryBudgetHandle = e => {
+  const categoryBudgetHandle = (e) => {
     setCategoryBudget(e.target.value);
   };
+  const openModal = () => {};
 
   return (
-    <div className="cat-form">
-      <input
-        className="category-form"
-        name="category-name"
-        placeholder="New Category Name"
-        value={categoryName}
-        onChange={categoryNameHandle}
-      />
-
-      <input
-        className="category-form"
-        name="category-budget"
-        placeholder="New Total Budget (USD)"
-        value={categoryBudget}
-        onChange={categoryBudgetHandle}
-      />
-
-      <button className="cat-butt" onClick={buttonHandle}>
-        Set Category
-      </button>
+    <div className="container has-text-centered" id="categoryForm">
+      <form>
+        <input
+          className="input is-small"
+          name="categoryName"
+          placeholder="New Category Name"
+          value={categoryName}
+          onChange={categoryNameHandle}
+          style={{ margin: "5px" }}
+          required
+        />
+        <input
+          className="input is-small"
+          type="number"
+          name="categoryBudget"
+          placeholder="New Total Budget (USD)"
+          value={categoryBudget}
+          onChange={categoryBudgetHandle}
+          style={{ margin: "5px" }}
+          required
+        />
+        <button
+          className="button is-small"
+          onClick={buttonHandle}
+          style={{ margin: "5px" }}
+        >
+          Set Category
+        </button>
+      </form>
     </div>
   );
 };
