@@ -1,29 +1,36 @@
 import React, { useState } from "react";
 
-const AccountForm = props => {
+const AccountForm = (props) => {
   const [accountName, setAccountName] = useState("");
 
-  const accountNameHandle = e => {
+  const accountNameHandle = (e) => {
     setAccountName(e.target.value);
   };
 
-  const buttonHandle = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     props.sendAccount(accountName);
+    console.log(accountName);
     setAccountName("");
   };
 
   return (
-    <div className="acc-form">
-      <input
-        className="account-form"
-        name="account-name"
-        placeholder="New Account Name"
-        value={accountName}
-        onChange={accountNameHandle}
-      />
-      <button className="cat-butt" onClick={buttonHandle}>
-        Add An Account
-      </button>
+    <div className="container has-text-centered">
+      <form onSubmit={handleSubmit}>
+        <input
+          className="input is-small"
+          name="accountName"
+          placeholder="New Account Name"
+          value={accountName}
+          onChange={accountNameHandle}
+          style={{ margin: "5px" }}
+          required
+        />
+        <br />
+        <button className="button is-small" style={{ margin: "5px" }}>
+          Add An Account
+        </button>
+      </form>
     </div>
   );
 };

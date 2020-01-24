@@ -1,6 +1,6 @@
 import React from "react";
 
-const Chart = props => {
+const Chart = (props) => {
   return <div className="chart"></div>;
 };
 
