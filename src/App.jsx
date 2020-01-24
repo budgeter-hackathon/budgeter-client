@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CategoryList from "./Category/CategoryList.jsx";
 import TransactionList from "./Transaction/TransactionList.jsx";
-import TransactionForm from "./Transaction/TransactionForm.jsx";
 import Chart from "./Chart.jsx";
-import "./App.css";
+
 
 const App = () => {
   const [transactionList, setTransactionList] = useState([]);
@@ -62,8 +61,8 @@ const App = () => {
   const sendCategory = (categoryName, targetBudget) => {
     axios
       .post("http://localhost:5000/api/categories", {
-        categoryName: categoryName,
-        targetBudget: targetBudget
+        name: categoryName,
+        budget: targetBudget
       })
       .then(() => {
         return axios.get("http://localhost:5000/api/categories"); //url for categories
@@ -76,9 +75,10 @@ const App = () => {
       });
   };
 
-  const sendAccount = (accountName) => {
+  const sendAccount = (accountName, balence) => {
     axios.post("http://localhost:5000/api/accounts", {
-      accountName: accountName
+      name: accountName,
+      balence: balence
     });
   };
   return (
@@ -106,6 +106,7 @@ const App = () => {
             <div className="column is-3">
               <br />
               <CategoryList
+                sendTransaction={sendTransaction}
                 categoryList={categoryList}
                 sendCategory={sendCategory}
                 accountNames={accountNames}

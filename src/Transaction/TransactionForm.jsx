@@ -11,6 +11,43 @@ const TransactionForm = (props) => {
   const [accountId, setAccountId] = useState(0);
   const [transType, setTransType] = useState("");
 
+  const handleChangeCatName = (e) => {
+    setCategoryId(e.target.value);
+  };
+  const handleChangeAmount = (e) => {
+    setAmount(e.target.value);
+  };
+  const handleChangeDate = (e) => {
+    setDate(e.target.value);
+  };
+  const handleChangeDescription = (e) => {
+    setDescription(e.target.value);
+  };
+  const handleChangeAccountId = (e) => {
+    setAccountId(e.target.value);
+  };
+  const handleChangeTransType = (e) => {
+    setTransType(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.sendTransaction(
+      categoryId,
+      amount,
+      date,
+      description,
+      accountId,
+      transType
+    );
+    setCategoryId(0);
+    setAmount(0);
+    setDate("");
+    setDescription("");
+    setAccountId(0);
+    setTransType("");
+  };
+  
   const [showModal, hideModal] = useModal(() => (
     <ReactModal isOpen>
       <form className="form" onSubmit={handleSubmit}>
@@ -111,47 +148,13 @@ const TransactionForm = (props) => {
     </ReactModal>
   ));
 
-  const handleChangeCatName = (e) => {
-    setCategoryId(e.target.value);
-  };
-  const handleChangeAmount = (e) => {
-    setAmount(e.target.value);
-  };
-  const handleChangeDate = (e) => {
-    setDate(e.target.value);
-  };
-  const handleChangeDescription = (e) => {
-    setDescription(e.target.value);
-  };
-  const handleChangeAccountId = (e) => {
-    setAccountId(e.target.value);
-  };
-  const handleChangeTransType = (e) => {
-    setTransType(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.sendTransaction(
-      categoryId,
-      amount,
-      date,
-      description,
-      accountId,
-      transType
-    );
-    setCategoryId(0);
-    setAmount(0);
-    setDate("");
-    setDescription("");
-    setAccountId(0);
-    setTransType("");
-  };
 
   return (
-    <button className="button is-success" onClick={showModal}>
-      VERY NICE!
+    <div className='container has-text-centered'>
+    <button className="button is-small" style={{ margin: "5px" }} onClick={showModal}>
+      Transaction Form
     </button>
+    </div>
   );
 };
 
