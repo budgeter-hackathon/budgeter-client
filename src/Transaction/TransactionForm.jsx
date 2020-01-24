@@ -9,7 +9,7 @@ const TransactionForm = (props) => {
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [accountId, setAccountId] = useState(0);
-  const [transType, setTransType] = useState("");
+  const [transType, setTransType] = useState("Debit");
 
   const handleChangeCatName = (e) => {
     setCategoryId(e.target.value);
@@ -32,6 +32,7 @@ const TransactionForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    hideModal();
     props.sendTransaction(
       categoryId,
       amount,
@@ -47,9 +48,12 @@ const TransactionForm = (props) => {
     setAccountId(0);
     setTransType("");
   };
-  
-  const [showModal, hideModal] = useModal(() => (
+
+  const [showModal, hideModal] = useModal(() => {
+
+    return(
     <ReactModal isOpen>
+      <button className='is-pulled-right' onClick={hideModal}>X</button>
       <form className="form" onSubmit={handleSubmit}>
         <div className="field">
           <label className="label">Category Name:</label>
@@ -141,12 +145,13 @@ const TransactionForm = (props) => {
             </div>
           </div>
         </div>
-        <button className="button is-info" onClick={hideModal}>
+        <button className="button is-info">
           Submit
         </button>
       </form>
     </ReactModal>
-  ));
+    )
+  },[handleSubmit]);
 
 
   return (

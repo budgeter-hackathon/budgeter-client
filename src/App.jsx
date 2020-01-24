@@ -75,11 +75,17 @@ const App = () => {
       });
   };
 
-  const sendAccount = (accountName, balence) => {
+  const sendAccount = (accountName, balance) => {
     axios.post("http://localhost:5000/api/accounts", {
       name: accountName,
-      balence: balence
-    });
+      balance: balance
+    })
+    .then(()=>{
+      return axios.get("http://localhost:5000/api/accounts");
+    })
+    .then((accounts)=>{
+      setAccountNames(accounts.data);
+    })
   };
   return (
     <div>
