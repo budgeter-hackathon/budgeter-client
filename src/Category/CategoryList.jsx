@@ -2,7 +2,6 @@ import React from "react";
 import CategoryForm from "./CategoryForm.jsx";
 import AccountForm from "./AccountForm.jsx";
 import TransactionForm from "../Transaction/TransactionForm.jsx";
-import TransactionList from "../Transaction/TransactionList.jsx";
 
 const CategoryList = (props) => {
   return (
@@ -53,7 +52,7 @@ const CategoryList = (props) => {
       <p className="menu-label">Add Account</p>
       <AccountForm sendAccount={props.sendAccount} />
       <p className="menu-label">Add Transaction</p>
-      <TransactionForm categoryList={props.categoryList} accountNames={props.accountNames}/>
+      <TransactionForm categoryList={props.categoryList} accountNames={props.accountNames} sendTransaction={props.sendTransaction}/>
     </aside>
   );
 };

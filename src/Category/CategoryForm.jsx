@@ -4,7 +4,8 @@ const CategoryForm = (props) => {
   const [categoryName, setCategoryName] = useState("");
   const [categoryBudget, setCategoryBudget] = useState("");
 
-  const buttonHandle = () => {
+  const buttonHandle = (e) => {
+    e.preventDefault();
     props.sendCategory(categoryName, categoryBudget);
     setCategoryName("");
     setCategoryBudget("");
@@ -17,11 +18,10 @@ const CategoryForm = (props) => {
   const categoryBudgetHandle = (e) => {
     setCategoryBudget(e.target.value);
   };
-  const openModal = () => {};
 
   return (
     <div className="container has-text-centered" id="categoryForm">
-      <form>
+      <form onSubmit={buttonHandle}>
         <input
           className="input is-small"
           name="categoryName"
@@ -43,7 +43,6 @@ const CategoryForm = (props) => {
         />
         <button
           className="button is-small"
-          onClick={buttonHandle}
           style={{ margin: "5px" }}
         >
           Set Category
